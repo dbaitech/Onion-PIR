@@ -52,7 +52,7 @@ private:
     seal::Ciphertext compose_to_ciphertext(std::vector<seal::Plaintext> plains);
 
 
-    friend class PIRServer;
+    // friend class PIRServer;
 };
 
 
