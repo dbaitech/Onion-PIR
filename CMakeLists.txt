@@ -67,12 +67,12 @@ target_link_libraries(OnionPIRLib PRIVATE SEAL::seal /usr/local/lib/libnfllib_st
 
 set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_SOURCE_DIR}/../../install" CACHE PATH "Installation Directory" FORCE)
 
-install(TARGETS onionpir
-        EXPORT onionpirTargets
+install(TARGETS OnionPIRLib
+        EXPORT OnionPIRLibTargets
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib
         RUNTIME DESTINATION bin)
 
-install(EXPORT onionpirTargets
-        FILE onionpirConfig.cmake
+install(EXPORT OnionPIRLibTargets
+        FILE OnionPIRLibConfig.cmake
         DESTINATION lib/cmake/onionpir)
