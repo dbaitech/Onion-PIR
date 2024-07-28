@@ -75,4 +75,4 @@ install(TARGETS OnionPIRLib
 
 install(EXPORT OnionPIRLibTargets
         FILE OnionPIRLibConfig.cmake
-        DESTINATION lib/cmake/onionpir)
+        DESTINATION lib/cmake/OnionPIRLib)
