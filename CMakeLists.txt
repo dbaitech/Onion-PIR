@@ -51,9 +51,10 @@ set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_SOURCE_DIR}/../../install" CACHE PATH 
 
 install(TARGETS onionpir
         EXPORT onionpirTargets
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib
         RUNTIME DESTINATION bin)
 
 install(EXPORT onionpirTargets
-        FILE onionpirTargets.cmake
-        NAMESPACE onionpir::
+        FILE onionpirConfig.cmake
         DESTINATION lib/cmake/onionpir)
