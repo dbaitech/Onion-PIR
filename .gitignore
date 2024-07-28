@@ -63,3 +63,7 @@ lib/*
 bin/*
 test/test_runner
 onionpir
+/SEAL
+/Testing
+/.cmake
+/NFLlib
