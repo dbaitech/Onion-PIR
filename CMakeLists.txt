@@ -73,7 +73,7 @@ install(TARGETS OnionPIRLib
         ARCHIVE DESTINATION lib
         RUNTIME DESTINATION bin)
 
-install(FILES pir.h pir_client.h pir_server.h tools.h util.h waksman.h DESTINATION include)
+install(FILES external_prod.h pir.h pir_client.h pir_server.h tools.h util.h waksman.h DESTINATION include)
 
 install(EXPORT OnionPIRLibTargets
         FILE OnionPIRLibConfig.cmake
