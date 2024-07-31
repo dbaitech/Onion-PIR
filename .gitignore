@@ -65,5 +65,3 @@ test/test_runner
 onionpir
 /Testing
 /.cmake
-/NFLlib
-/SEAL
