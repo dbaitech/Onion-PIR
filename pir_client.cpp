@@ -313,6 +313,63 @@ PirQuery pir_client::generate_query_combined(uint64_t desiredIndex) {
     return result;
 }
 
+std::vector<std::vector<uint64_t>> pir_client::convert_index_to_ohe(const uint64_t &index) const {
+    // check that index fits in the database
+    uint64_t dim_index = index;
+    if (index >= pir_params_.n) {
+        throw std::invalid_argument("The query index is out of bounds");
+    }
+
+    std::vector<uint64_t> q{};
+    // convert index to list of indices for higher dimensional db
+    int num_dims = static_cast<int>(pir_params_.nvec.size());
+    for (int i = num_dims - 1; i > -1; i--) {
+        dim_index = dim_index % pir_params_.nvec[i];
+        q.emplace(q.begin(), dim_index);
+        dim_index = dim_index / pir_params_.nvec[i];
+    }
+
+    std::vector<std::vector<uint64_t>> selection(pir_params_.nvec.size());
+    for (uint64_t i = 0; i < pir_params_.nvec.size(); i++) {
+        selection[i] = std::vector<uint64_t>(pir_params_.nvec[i], 0);
+        selection[i][q[i]] = 1;
+    }
+    return selection;
+}
+
+uint64_t pir_client::convert_ohe_to_index(const std::vector<std::vector<uint64_t>> &ohe) const {
+    if (ohe.size() != pir_params_.nvec.size()) {
+        throw std::invalid_argument("OHE matrix has incorrect number of dimensions");
+    }
+
+    uint64_t flat_index = 0;
+
+    for (size_t i = 0; i < ohe.size(); ++i) {
+        const std::vector<uint64_t> &dim = ohe[i];
+        auto it = std::find(dim.begin(), dim.end(), 1);
+        if (it == dim.end()) {
+            throw std::invalid_argument("Invalid OHE encoding: no '1' found in dimension");
+        }
+        size_t pos = std::distance(dim.begin(), it);
+        if (pos >= pir_params_.nvec[i]) {
+            throw std::invalid_argument("OHE encoding has out-of-bounds index");
+        }
+        flat_index = flat_index * pir_params_.nvec[i] + pos;
+    }
+
+    return flat_index;
+}
+
+PirQuery pir_client::generate_ohe_query(std::vector<std::vector<uint64_t>> &ohe_query) {
+    uint64_t index = convert_ohe_to_index(ohe_query);
+    return generate_query(index);
+}
+
+PirQuery pir_client::generate_ohe_query_combined(std::vector<std::vector<uint64_t>> &ohe_query) {
+    uint64_t index = convert_ohe_to_index(ohe_query);
+    return generate_query_combined(index);
+}
+
 void pir_client::decrypt_results(std::vector<seal::Ciphertext> reply) {
     for (int i=0; i< reply.size();i++){
         Plaintext ppt;
