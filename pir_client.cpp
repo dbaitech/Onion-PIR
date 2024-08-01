@@ -360,16 +360,6 @@ uint64_t pir_client::convert_ohe_to_index(const std::vector<std::vector<uint64_t
     return flat_index;
 }
 
-PirQuery pir_client::generate_ohe_query(std::vector<std::vector<uint64_t>> &ohe_query) {
-    uint64_t index = convert_ohe_to_index(ohe_query);
-    return generate_query(index);
-}
-
-PirQuery pir_client::generate_ohe_query_combined(std::vector<std::vector<uint64_t>> &ohe_query) {
-    uint64_t index = convert_ohe_to_index(ohe_query);
-    return generate_query_combined(index);
-}
-
 void pir_client::decrypt_results(std::vector<seal::Ciphertext> reply) {
     for (int i=0; i< reply.size();i++){
         Plaintext ppt;

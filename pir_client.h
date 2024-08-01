@@ -23,9 +23,6 @@ public:
     [[nodiscard]] std::vector<std::vector<uint64_t>> convert_index_to_ohe(const uint64_t &index) const;
     [[nodiscard]] uint64_t convert_ohe_to_index(const std::vector<std::vector<uint64_t>> &ohe) const;
 
-    PirQuery generate_ohe_query(std::vector<std::vector<uint64_t>> &ohe_query);
-    PirQuery generate_ohe_query_combined(std::vector<std::vector<uint64_t>> &ohe_query);
-
     PirQuery generate_perm_query(std::uint64_t desiredIndex);
     void compute_inverse_scales();
     // Index and offset of an element in an FV plaintext
