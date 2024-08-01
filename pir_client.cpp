@@ -316,6 +316,8 @@ PirQuery pir_client::generate_query_combined(uint64_t desiredIndex) {
 std::vector<std::vector<uint64_t>> pir_client::convert_index_to_ohe(const uint64_t &index) const {
     // check that index fits in the database
     uint64_t dim_index = index;
+    uint64_t dim_index_mod;
+
     if (index >= pir_params_.n) {
         throw std::invalid_argument("The query index is out of bounds");
     }
@@ -324,8 +326,8 @@ std::vector<std::vector<uint64_t>> pir_client::convert_index_to_ohe(const uint64
     // convert index to list of indices for higher dimensional db
     int num_dims = static_cast<int>(pir_params_.nvec.size());
     for (int i = num_dims - 1; i > -1; i--) {
-        dim_index = dim_index % pir_params_.nvec[i];
-        q.emplace(q.begin(), dim_index);
+        dim_index_mod = dim_index % pir_params_.nvec[i];
+        q.emplace(q.begin(), dim_index_mod);
         dim_index = dim_index / pir_params_.nvec[i];
     }
 
