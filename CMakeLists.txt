@@ -81,7 +81,8 @@ install(TARGETS OnionPIRLib
         EXPORT OnionPIRLibTargets
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib
-        RUNTIME DESTINATION bin)
+        RUNTIME DESTINATION bin
+        INCLUDES DESTINATION include)
 
 install(FILES ${OnionPIR_Headers} DESTINATION include)
 
