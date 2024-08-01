@@ -30,7 +30,7 @@ std::uint64_t coefficients_per_element(std::uint32_t logtp, std::uint64_t ele_si
 
 uint64_t elements_per_ptxt(uint32_t logt, uint64_t N, uint64_t ele_size);
 vector<uint64_t> get_dimensions(uint64_t &plaintext_num, uint32_t d);
-uint64_t plaintexts_per_db(uint32_t logtp, uint64_t N, uint64_t ele_num, uint64_t ele_size);
+// uint64_t plaintexts_per_db(uint32_t logtp, uint64_t N, uint64_t ele_num, uint64_t ele_size);
 // Takes a vector of coefficients and returns the corresponding FV plaintext
 void vector_to_plaintext(const std::vector<std::uint64_t> &coeffs, seal::Plaintext &plain);
 
